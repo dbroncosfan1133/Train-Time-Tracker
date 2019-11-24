@@ -1,0 +1,34 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+th {
+    border-bottom: 1px solid black;
+    text-align: left;
+}
+
+.cardSubHeaders {
+    padding: 10px;
+    background-color: #38277e;
+    color: #ffffff;
+}
+
+.card-title {
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.crdBody {
+    margin-bottom: 0px;
+    padding: 10px;
+}
+
+.mainHeader {
+    text-align: center;
+    background-color: #000ce3;
+    color: #ffffff;
+}
+
+#currentCard {
+    margin-bottom: 25px;
+}
