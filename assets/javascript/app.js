@@ -27,28 +27,22 @@ $(document).ready(function(){
     tFirstTime = $("#inputFirstTime").val().trim();
     tFrequency = $("#inputFrequency").val().trim();
 
+    $("#inputTrain").val("");
+	$("#inputDestination").val("");
+	$("#inputFirstTime").val("");
+	$("#inputFrequency").val("");
 
     database.ref().push({
         tName: tName,
         tDestination: tDestination,
         tFirstTime: tFirstTime,
         tFrequency: tFrequency,
-        //tMinutesTillTrain: tMinutesTillTrain,
         dataAdded: firebase.database.ServerValue.TIMESTAMP
       });
     });
 
-    database.ref().on("child_added", function(childSnapshot) {
 
-        $("#trains-here").append("<tr><td class='train-name'> " + childSnapshot.val().tName + 
-            " </td><td class='train-destination'> " + childSnapshot.val().tDestination +  
-            " </td><td class='train-frequency'> " + childSnapshot.val().tFrequency + 
-            " </td><td class='train-arrival'> " + nextTrain +
-            " </td><td class='train-away'> " + tMinutesTillTrain + 
-            " </td></tr>");
-    }, function(errorObject) {
-        console.log("Errors handled: " + errorObject.code);
-    });
+    database.ref().on("child_added", function(childSnapshot) {
           // First Time (pushed back 1 year to make sure it comes before current time)
           var firstTimeConverted = moment(tFirstTime, "HH:mm").subtract(1, "years");
           console.log(firstTimeConverted.format("llll"));
@@ -58,7 +52,7 @@ $(document).ready(function(){
           console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
           // Difference between the times
-          var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+          var diffTime = currentTime.diff(firstTimeConverted, "minutes");
           console.log("DIFFERENCE IN TIME: " + diffTime);
 
           // Time apart (remainder)
@@ -70,7 +64,21 @@ $(document).ready(function(){
           console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
           // Next Train
-          var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+          var nextTrain = currentTime.add(tMinutesTillTrain, "minutes");
           console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
+          var arrivalTime = nextTrain.format("hh:mm a");
+
+
+
+        $("#trains-here").append("<tr><td>" + childSnapshot.val().tName + 
+            "</td><td>" + childSnapshot.val().tDestination +  
+            "</td><td>" + childSnapshot.val().tFrequency + 
+            "</td><td>" + arrivalTime +
+            "</td><td>" + tMinutesTillTrain + 
+            "</td></tr>");
+    
+    }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
 });
