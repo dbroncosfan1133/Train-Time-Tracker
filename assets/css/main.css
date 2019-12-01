@@ -1,6 +1,8 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: #00c400;
+    background-image: url(../images/yellow-train.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 th {
@@ -10,7 +12,7 @@ th {
 
 .cardSubHeaders {
     padding: 10px;
-    background-color: #38277e;
+    background-color: #292b2c;
     color: #ffffff;
 }
 
@@ -26,7 +28,9 @@ th {
 
 .mainHeader {
     text-align: center;
-    background-color: #000ce3;
+    background-image: url(../images/train-tracks.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #ffffff;
 }
 
